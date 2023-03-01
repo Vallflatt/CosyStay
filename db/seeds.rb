@@ -18,7 +18,7 @@ puts "after destroy"
 puts "count flat: #{Flat.count}"
 
 
-
+50.times do
 title = Faker::Company.name
 street = Faker::Address.street_address
 
@@ -27,7 +27,7 @@ city = Faker::Address.city
 
 country = Faker::Address.country
 
-description = Faker::Lorem.words(number: 50)
+description = Faker::Lorem.paragraph
 
 
 
@@ -38,7 +38,7 @@ description = Faker::Lorem.words(number: 50)
 image_url = Faker::LoremFlickr.image(size: "600x400", search_terms: ['house'])
 price = Faker::Commerce.price(range: 80..400, )
 # Create a new instance of the Airbnb model and save it to the database
-50.times do
+
   Flat.create!(
     title: ,
     street: ,
