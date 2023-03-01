@@ -4,6 +4,12 @@
       <div class="card sticky-top">
         <div data-controller="geolocation">
           <button data-action="geolocation#search">search near me</button>
+          <select data-geolocation-target="distance" name="distance" id="">
+            <option value="0.1">10km</option>
+            <option value="0.2">20km</option>
+            <option value="0.5" selected="selected">50km</option>
+            <option value="1">100km</option>
+          </select>
         </div>
 
         <div class="card-body">

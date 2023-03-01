@@ -8,6 +8,7 @@ const options = {
 // Connects to data-controller="geolocation"
 export default class extends Controller {
   static values = { url: String }
+  static targets = [ "distance" ]
 
   search() {
     navigator.geolocation.getCurrentPosition(this.success.bind(this), this.error, options);
@@ -16,7 +17,7 @@ export default class extends Controller {
   success(pos) {
     const crd = pos.coords;
     // redirect with coordinates in params
-    location.assign(`/flats?lat=${crd.latitude}&lng=${crd.longitude}&dist=0.5`)
+    location.assign(`/flats?lat=${crd.latitude}&lng=${crd.longitude}&dist=${this.distanceTarget.value}`)
   }
 
   error(err) {
