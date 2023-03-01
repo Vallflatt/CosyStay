@@ -6,3 +6,8 @@
 <h3><%= @flat.price %></h3>
 <%= image_tag @flat.image_url %>
 <%= link_to "Back", flats_path(@flat) %>
+
+<%= simple_form_for @flat do |f| %>
+  <%= f.input :date_attribute %>
+  <%= f.submit %>
+<% end %>
