@@ -16,7 +16,7 @@ export default class extends Controller {
   success(pos) {
     const crd = pos.coords;
     // redirect with coordinates in params
-    location.assign(`/flats?lat=${crd.latitude}&lng=${crd.longitude}`)
+    location.assign(`/flats?lat=${crd.latitude}&lng=${crd.longitude}&dist=0.5`)
   }
 
   error(err) {
