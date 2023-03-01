@@ -3,6 +3,7 @@ class Booking < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :dates_in_future
+  has_one :flat
 
 
   private
