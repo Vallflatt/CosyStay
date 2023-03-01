@@ -2,9 +2,23 @@ class FlatsController < ApplicationController
 
   before_action :set_flat, only: %i[show]
 
-  # def index
-  #   @flats = Flat.all
-  # end
+  def index
+    if params.has_key?(:lat) && params.has_key?(:lng) && params.has_key?(:dist)
+      latitude = params["lat"].to_f
+      longitude = params["lng"].to_f
+      dist = params["dist"].to_f
+
+      @flats = Flat.where([
+        "latitude <= ? and latitude >= ? and longitude <= ? and longitude >= ?",
+        latitude + dist,
+        latitude - dist,
+        longitude + dist,
+        longitude - dist
+      ])
+    else
+      @flats = Flat.limit(10)
+    end
+  end
 
   def show
   end

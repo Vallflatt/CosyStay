@@ -28,8 +28,9 @@ city = Faker::Address.city
 country = Faker::Address.country
 
 description = Faker::Lorem.paragraph
-
-
+latitude = (rand(-100..100).fdiv(100) + 46.5436672).round(7)
+longitude = (rand(-100..100).fdiv(100) + 6.5961984).round(7)
+#lng 6.5961984 lat 46.5436672
 
 # Combine the street address, city, state, and zip code to create a full address
 #address = "#{street_address}, #{city}, #{state} #{zip_code}"
@@ -45,6 +46,10 @@ price = Faker::Commerce.price(range: 80..400, )
     city: ,
     image_url: ,
     country: ,
-    price:, description:)
+    price:,
+    description:,
+    latitude:,
+    longitude:
+  )
 end
 puts "count flat: #{Flat.count}"
