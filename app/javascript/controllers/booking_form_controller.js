@@ -17,13 +17,16 @@ export default class extends Controller {
 
   updateTotalPrice() {
     console.log("this.updateTotalPrice")
-    const startDate = new Date(this.start_date_target.value)
-    const endDate = new Date(this.end_date_target.value)
+    console.log(this.startDateTarget)
+    console.log(this.endDateTarget)
+    if (!this.startDateTarget || !this.endDateTarget) return;
+    const startDate = new Date(this.startDateTarget.value)
+    const endDate = new Date(this.endDateTarget.value)
     const totalPrice = this.totalPriceTarget.value
 
     if (startDate && endDate && this.pricePerNightValue) {
       const nights = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24))
-      const newTotalPrice = nights * pricePerNight
+      const newTotalPrice = nights * this.pricePerNightValue
 
       if (newTotalPrice !== totalPrice) {
         this.totalPriceTarget.value = newTotalPrice
