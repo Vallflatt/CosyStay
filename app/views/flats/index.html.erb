@@ -6,7 +6,7 @@
       <%# Add -> to class button Search near me to center button (top-50 start-50 translate-middle)%>
       <select class="position-absolute opacity-75 top-0 end-0 btn btn-secondary m-4" data-geolocation-target="distance" name="distance" id="" style="z-index: 1">
         <% @distance_choices.each do |choice| %>
-          <option value="<%= choice %>"<%= 'selected="selected"' if choice == @distance %>><%= choice %>KM</option>
+          <option value="<%= choice[0] %>"<%= 'selected="selected"' if choice[0] == @distance %>><%= choice[0] %>KM</option>
         <% end %>
       </select>
       <%# </div> %>
@@ -15,18 +15,11 @@
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoidmFsbGZsYXR0IiwiYSI6ImNsZXIxeTk5eTA3Y3E0M3FqbjAzdHk4YXgifQ.-0loLcXV_emFhVSb7W0t1A';
 
-      const zooms = {
-        10: 12,
-        20: 10,
-        50: 8,
-        100: 6
-      }
-
       const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v12', // style URL
         center: <%= @coordinates %>, // starting position [lng, lat]
-        zoom: zooms[<%= @distance %>], // starting zoom
+        zoom: <%= @distance_choices.find {|choice| choice[0] == @distance}[1] %>, // starting zoom
         boxZoom: true
       });
 

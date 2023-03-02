@@ -4,7 +4,13 @@ class FlatsController < ApplicationController
 
   def index
 
-    @distance_choices = [10, 20, 50, 100]
+    # [distance in KM, Zoom value]
+    @distance_choices = [[15, 12], [20, 10], [50, 8], [100, 6]]
+
+    # Default values
+    @distance = 50
+    @markers = []
+    @coordinates = [6.5761984, 46.5236672]
 
     if params.has_key?(:lat) && params.has_key?(:lng) && params.has_key?(:dist)
       latitude = params["lat"].to_f
@@ -24,10 +30,7 @@ class FlatsController < ApplicationController
         longitude, latitude
       ]
     else
-      @distance = 50
-      @markers = []
       @flats = Flat.limit(10)
-      @coordinates = [6.5761984, 46.5236672]
     end
 
     @markers = @markers.to_json
