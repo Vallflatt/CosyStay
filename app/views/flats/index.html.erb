@@ -1,0 +1,45 @@
+<div class="row" style="height: calc(100vh - 100px); overflow: hidden">
+  <div class="col-lg-6 h-100" >
+    <div data-controller="geolocation" style="margin: 10px; display: flex;align-content: space-around;flex-wrap: nowrap;flex-direction: row;justify-content: space-between;">
+      <button class="btn btn-outline-secondary rounded-4" data-action="geolocation#search" style="">Search near me</button>
+      <select class="btn btn-outline-secondary" data-geolocation-target="distance" name="distance" id="">
+        <option value="0.1">10km</option>
+        <option value="0.2">20km</option>
+        <option value="0.5" selected="selected">50km</option>
+        <option value="1">100km</option>
+      </select>
+    </div>
+    <div class="w-100 h-100" id='map'>
+    </div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoidmFsbGZsYXR0IiwiYSI6ImNsZXIxeTk5eTA3Y3E0M3FqbjAzdHk4YXgifQ.-0loLcXV_emFhVSb7W0t1A';
+      const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: [-74.5, 40], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+      });
+    </script>
+  </div>
+  <div class="col-lg-6 h-100" style="overflow: auto">
+    <div class="row w-100 py-2" style="margin-top: 10px">
+      <% @flats.each do |flat|%>
+        <div class="col-6" style="margin-bottom: 16px">
+          <div class="card rounded-4 my-2 h-100">
+            <img class="img-thumbnail rounded-4" src="<%= flat.image_url %>?<%= flat.id %>" alt="">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <p class="card-title fw-bold"><%= flat.title %></p>
+                <p class="card-text"><%= flat.description %></p>
+              </div>
+              <a href="/flats/<%= flat.id %>" class="btn btn-success btn-sm text-white fw-normal rounded-4 float-center fw-bold ">
+                Book now
+              </a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%# <div><%= if currentLocation.success == true  %>

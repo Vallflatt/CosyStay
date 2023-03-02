@@ -1,4 +1,10 @@
 class Flat < ApplicationRecord
+  def address
+    "#{street}, #{city}"
+  end
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_street?
   has_many :bookings, dependent: :destroy
   validates :title, presence: true
   validates :description, presence: true

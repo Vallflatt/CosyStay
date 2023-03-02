@@ -29,3 +29,20 @@
 <% end %>
 
 <%= link_to "Back", flats_path(@flat) %>
+<br>
+<br>
+<div class="mx-auto card-trip w-50 p-4 rounded-4" style="background-color: #eee;">
+  <%= image_tag @flat.image_url, class:"img-thumbnail rounded-4 mb-4" %>
+  <div class="card-trip-infos">
+    <div class="text-right flex-column justify-space-between mb-4">
+      <p class="fw-bold fs-5 text-end float-end text-secondary">Price per night: <%= @flat.price %></p>
+      <p class="text-right text-uppercase fw-bold fs-3 text-secondary"><%= @flat.title %></p>
+      <p class="text-right text-black-50 mb-10"><%= @flat.description %></p>
+    </div>
+    <div class= "d-grid gap-2 justify-space-between">
+      <%= link_to "Book now", flats_path(@flat), class:"btn btn-success btn-lg float-center text-white fw-normal rounded-4" %>
+    </div>
+  </div>
+</div>
+<br>
+<br>
