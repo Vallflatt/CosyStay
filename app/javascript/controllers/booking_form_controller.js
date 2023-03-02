@@ -26,7 +26,7 @@ export default class extends Controller {
 
     if (startDate && endDate && this.pricePerNightValue) {
       const nights = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24))
-      const newTotalPrice = nights * this.pricePerNightValue
+      const newTotalPrice = nights < 0 ? 0 : nights * this.pricePerNightValue
 
       if (newTotalPrice !== totalPrice) {
         this.totalPriceTarget.value = newTotalPrice
