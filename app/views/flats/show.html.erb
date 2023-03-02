@@ -1,17 +1,26 @@
-<h1><%= @flat.title %></h1>
-<h2><%= @flat.description %></h2>
-<p><%= @flat.street %></p>
-<p><%= @flat.city %></p>
-<p><%= @flat.country %></p>
-<h3><%= @flat.price %></h3>
-<%# <%= image_tag @flat.image_url %> %>
 
-<%= simple_form_for @booking do |f| %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%= simple_form_for [@flat, @booking] do |f| %>
   <div data-controller="booking-form" data-booking-form-price-per-night-value="<%= @flat.price %>">
   <%# f.input :start_date, as: :string, label: "Check-in", input_html: { class: "form-control datepicker", placeholder: "DD-MM-YYYY", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-controller": "booking-form", "data-action": "change->booking-form#updateTotalPrice"} %>
   <%# f.input :end_date, as: :string, label: "Check-out", input_html: { class: "form-control datepicker", placeholder: "DD-MM-YYYY", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-controller": "booking-form", "data-action": "change->booking-form#updateTotalPrice"} %>
-  <%= f.input :start_date, as: :string, label: "Check-in", input_html: { class: "form-control datepicker", placeholder: "DD-MM-YYYY", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-booking-form-target": "startDate", "data-action": "change->booking-form#updateTotalPrice"} %>
-  <%= f.input :end_date, as: :string, label: "Check-out", input_html: { class: "form-control datepicker", placeholder: "DD-MM-YYYY", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"} %>
+  <%= f.input :start_date, as: :string, label: "Check-in", input_html: { class: "datepicker" , placeholder: "YYYY-MM-DD", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-booking-form-target": "startDate", "data-action": "change->booking-form#updateTotalPrice"} %>
+  <%= f.input :end_date, as: :string, label: "Check-out", input_html: { class: "datepicker", placeholder: "YYYY-MM-DD", "data-provide": "datepicker", "data-date-format": "yyyy-mm-dd", "data-date-autoclose": "true", "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"} %>
   <%= f.number_field :total_price, value: 0, readonly: true, "data-booking-form-target": "totalPrice" %>
 
   <%= f.button :submit, class: "btn btn-primary" %>

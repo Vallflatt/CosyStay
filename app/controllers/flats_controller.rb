@@ -9,10 +9,7 @@ class FlatsController < ApplicationController
   def show
     @flat = Flat.find(params[:id])
     @booking = Booking.new
-    @total_price= @flat.price / (@booking.end_date - @booking.start_date).to_i if @booking.end_date && @booking.start_date
   end
-
-
 
   # def datepicker_input form, field
   #   content_tag :td, :data => {:provide => 'datepicker', 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => 'true'} do
