@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
   private
 
   def calculate_price
-    self.total_price = (end_date - start_date) * @flat.price
+    self.total_price = (end_date - start_date) * flat.price
   end
 
   def dates_in_future
