@@ -1,15 +1,17 @@
 <div class="row" style="height: calc(100vh - 100px); overflow: hidden">
-  <div class="col-lg-6 h-100" >
-    <div data-controller="geolocation" style="margin: 10px; display: flex;align-content: space-around;flex-wrap: nowrap;flex-direction: row;justify-content: space-between;">
-      <button class="btn btn-outline-secondary rounded-4" data-action="geolocation#search" style="">Search near me</button>
-      <select class="btn btn-outline-secondary" data-geolocation-target="distance" name="distance" id="">
+  <div class="col-lg-6 h-100" style="margin-top: 16px" >
+    <div class="position-relative  w-100 h-100" data-controller="geolocation" style="margin: 10px; display: flex;align-content: space-around;flex-wrap: nowrap;flex-direction: row;justify-content: space-between;">
+      <%# <div class="position-absolute top-0 w-100 d-flex justify-content-between p-4" style="z-index: 1"> %>
+      <button class="position-absolute opacity-75 top-0 start-0 btn btn-secondary btn-lg m-4 rounded-4 " data-action="geolocation#search" style="z-index: 1">Search near me</button>
+      <%# Add -> to class button Search near me to center button (top-50 start-50 translate-middle)%>
+      <select class="position-absolute opacity-75 top-0 end-0 btn btn-secondary m-4" data-geolocation-target="distance" name="distance" id="" style="z-index: 1">
         <option value="0.1">10km</option>
         <option value="0.2">20km</option>
         <option value="0.5" selected="selected">50km</option>
         <option value="1">100km</option>
       </select>
-    </div>
-    <div class="w-100 h-100" id='map'>
+      <%# </div> %>
+      <div class="w-100 h-100" id='map'></div>
     </div>
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoidmFsbGZsYXR0IiwiYSI6ImNsZXIxeTk5eTA3Y3E0M3FqbjAzdHk4YXgifQ.-0loLcXV_emFhVSb7W0t1A';
