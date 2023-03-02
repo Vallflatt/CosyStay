@@ -1,23 +1,39 @@
 class FlatsController < ApplicationController
   before_action :set_flat, only: %i[show]
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
   def index
+
+    # [distance in KM, Zoom value]
+    @distance_choices = [[15, 12], [20, 10], [50, 8], [100, 6]]
+
+    # Default values
+    @distance = 50
+    @markers = []
+    @coordinates = [6.5761984, 46.5236672]
+
     if params.has_key?(:lat) && params.has_key?(:lng) && params.has_key?(:dist)
       latitude = params["lat"].to_f
       longitude = params["lng"].to_f
-      dist = params["dist"].to_f
+      @distance = params["dist"].to_f
 
-      @flats = Flat.all
+      @flats = Flat.near([latitude, longitude], @distance)
       # The `geocoded` scope filters only flats with coordinates
-      @markers = @flats.geocoded.map do |flat|
+      @markers = @flats.map do |flat|
         {
           lat: flat.latitude,
-          lng: flat.longitude
+          lng: flat.longitude,
+          id: flat.id
         }
       end
+      @coordinates = [
+        longitude, latitude
+      ]
     else
       @flats = Flat.limit(10)
     end
+
+    @markers = @markers.to_json
   end
 
   def show
