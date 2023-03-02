@@ -5,26 +5,54 @@
       <button class="position-absolute opacity-75 top-0 start-0 btn btn-secondary btn-lg m-4 rounded-4 " data-action="geolocation#search" style="z-index: 1">Search near me</button>
       <%# Add -> to class button Search near me to center button (top-50 start-50 translate-middle)%>
       <select class="position-absolute opacity-75 top-0 end-0 btn btn-secondary m-4" data-geolocation-target="distance" name="distance" id="" style="z-index: 1">
-        <option value="0.1">10km</option>
-        <option value="0.2">20km</option>
-        <option value="0.5" selected="selected">50km</option>
-        <option value="1">100km</option>
+        <% @distance_choices.each do |choice| %>
+          <option value="<%= choice %>"<%= 'selected="selected"' if choice == @distance %>><%= choice %>KM</option>
+        <% end %>
       </select>
       <%# </div> %>
       <div class="w-100 h-100" id='map'></div>
     </div>
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoidmFsbGZsYXR0IiwiYSI6ImNsZXIxeTk5eTA3Y3E0M3FqbjAzdHk4YXgifQ.-0loLcXV_emFhVSb7W0t1A';
+
+      const zooms = {
+        10: 12,
+        20: 10,
+        50: 8,
+        100: 6
+      }
+
       const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9, // starting zoom
+        center: <%= @coordinates %>, // starting position [lng, lat]
+        zoom: zooms[<%= @distance %>], // starting zoom
+        boxZoom: true
       });
+
+      const marker = new mapboxgl.Marker({
+        color: "#FFFFFF",
+        draggable: false
+      }).setLngLat(<%= @coordinates %>)
+      .addTo(map);
+
+      const markers = JSON.parse('<%= @markers.html_safe %>')
+      markers.forEach((marker) => {
+        new mapboxgl.Marker({
+          color: "#D6D6D6",
+          draggable: false
+        }).setLngLat(marker)
+        .addTo(map)
+        .getElement()
+        .addEventListener('click', () => window.location.href = `/flats/${marker.id}`)
+      })
     </script>
   </div>
   <div class="col-lg-6 h-100" style="overflow: auto">
     <div class="row w-100 py-2" style="margin-top: 10px">
+      <% if @flats.empty? %>
+      <div>No results</div>
+      <% end %>
       <% @flats.each do |flat|%>
         <div class="col-6" style="margin-bottom: 16px">
           <div class="card rounded-4 my-2 h-100">
