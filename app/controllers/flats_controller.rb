@@ -19,8 +19,6 @@ class FlatsController < ApplicationController
 
       @flats = Flat.near([latitude, longitude], @distance)
       # The `geocoded` scope filters only flats with coordinates
-
-      end
       @coordinates = [
         longitude, latitude
       ]
@@ -34,6 +32,7 @@ class FlatsController < ApplicationController
         lng: flat.longitude,
         id: flat.id
       }
+    end
     @markers = @markers.to_json
   end
 
