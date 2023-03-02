@@ -13,4 +13,9 @@ class Flat < ApplicationRecord
   validates :country, presence: true
   validates :image_url, presence: true
   validates :price, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
+
+  def show
+    @flat = Flat.find(params[:id])
+    @booking = Booking.new
+  end
 end
