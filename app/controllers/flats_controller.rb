@@ -19,12 +19,7 @@ class FlatsController < ApplicationController
 
       @flats = Flat.near([latitude, longitude], @distance)
       # The `geocoded` scope filters only flats with coordinates
-      @markers = @flats.map do |flat|
-        {
-          lat: flat.latitude,
-          lng: flat.longitude,
-          id: flat.id
-        }
+
       end
       @coordinates = [
         longitude, latitude
@@ -33,6 +28,12 @@ class FlatsController < ApplicationController
       @flats = Flat.limit(10)
     end
 
+    @markers = @flats.map do |flat|
+      {
+        lat: flat.latitude,
+        lng: flat.longitude,
+        id: flat.id
+      }
     @markers = @markers.to_json
   end
 
