@@ -1,5 +1,5 @@
 <br>
-<br>
+<div onclick="history.back()" class="btn btn-secondary rounded-4 m-3">Back</div>
 <div class="mx-auto card-trip w-50 p-4 rounded-4" style="background-color: #eee;">
   <%= image_tag @flat.image_url, class:"img-thumbnail rounded-4 mb-4" %>
   <div class="card-trip-infos">
@@ -21,11 +21,10 @@
               <%=f.date_field :end_date, "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"%>
             </div>
           </div>
-          <%=f.number_field :total_price, value: 0, readonly: true, class: "col-12 mt-2", "data-booking-form-target": "totalPrice"%>
+          <%=f.number_field :total_price, readonly: true, class: "form-control col-12 mt-2", "data-booking-form-target": "totalPrice", placeholder: "Prix total"%>
           <%= f.button :submit, class: "col-12 btn btn-success mt-3 btn-lg float-center text-white fw-normal rounded-4" %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-<div onclick="history.back()" class="btn btn-secondary rounded-4">Back</div>
