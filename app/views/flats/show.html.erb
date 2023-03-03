@@ -22,7 +22,7 @@
               <%=f.date_field :end_date, "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"%>
             </div>
           </div>
-          <%=f.number_field :total_price, readonly: true, class: "form-control col-12 mt-2", "data-booking-form-target": "totalPrice", placeholder: "Total price"%>
+          <%=f.number_field :total_price, readonly: true, class: "form-control col-12 mt-2", "data-booking-form-target": "totalPrice", placeholder: "Total price in CHF"%>
           <%= f.button :submit, class: "col-12 btn btn-success mt-3 btn-lg float-center text-white fw-normal rounded-4" %>
         </div>
       <% end %>
