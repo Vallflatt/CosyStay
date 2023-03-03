@@ -7,41 +7,49 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require "faker"
 Flat.destroy_all if Rails.env.development?
+Booking.destroy_all if Rails.env.development?
+User.destroy_all if Rails.env.development?
 
-# Flat.create(title: "La Villa Robin", description: "Beautiful with amazing view", street: "Lac 12", city: "St-Cergues", country: "Switzerland", image_url: "https://images.unsplash.com/photo-1551354907-80361e454f5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80", price: 600)
-# Flat.create(title: "Drilon house", description: "Terrible experience", street: "Les Pâquis 4", city: "Geneva", country: "France", image_url: "https://images.unsplash.com/photo-1596573513513-d56b3999ac38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80", price: 50)
-# Flat.create(title: "Virginie Castle", description: "Haunted, I don't recommand", street: "Sauvabelin 2", city: "Lausanne", country: "Suisse", image_url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&q=80", price: 900)
-# Flat.create(title: "David hut", description: "Very nice place", street: "?", city: "Prypiat", country: "Ukraine", image_url: "https://images.unsplash.com/photo-1596401508552-72263942db7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80", price: 5)
-# Flat.create(title: "Le Wagon", description: "Super cosy", street: "Lausanne 64", city: "Renens", country: "Suisse", image_url: "https://static.wikia.nocookie.net/breakingbad/images/d/d6/RV.jpg/revision/latest?cb=20130724193305", price: 100)
 puts "after destroy"
 
+puts "count user: #{User.count}"
 puts "count flat: #{Flat.count}"
+puts "count booking: #{Booking.count}"
+
+10.times do
+  User.create!(
+    email: Faker::Internet.email,
+    password: '123456',
+  )
+end
 
 
 50.times do
-title = Faker::Company.name
-street = Faker::Address.street_address
+  title = Faker::Company.name
+  street = Faker::Address.street_address
 
-# Generate a random city
-city = Faker::Address.city
+  # Generate a random city
+  city = Faker::Address.city
 
-country = Faker::Address.country
+  country = Faker::Address.country
 
-description = Faker::Lorem.paragraph
-latitude = (rand(-100..100).fdiv(100) + 46.5436672).round(7)
-longitude = (rand(-100..100).fdiv(100) + 6.5961984).round(7)
-#lng 6.5961984 lat 46.5436672
+  description = Faker::Lorem.paragraph
+  latitude = (rand(-100..100).fdiv(100) + 46.5436672).round(7)
+  longitude = (rand(-100..100).fdiv(100) + 6.5961984).round(7)
+  #lng 6.5961984 lat 46.5436672
 
-# Combine the street address, city, state, and zip code to create a full address
-#address = "#{street_address}, #{city}, #{state} #{zip_code}"
+  # Combine the street address, city, state, and zip code to create a full address
+  #address = "#{street_address}, #{city}, #{state} #{zip_code}"
 
-# Generate a random image URL of a house using Faker's image method
-image_url = Faker::LoremFlickr.image(size: "600x400", search_terms: ['house'])
-price = Faker::Commerce.price(range: 80..400, )
-# Create a new instance of the Airbnb model and save it to the database
+  # Generate a random image URL of a house using Faker's image method
+  image_url = Faker::LoremFlickr.image(size: "600x400", search_terms: ['house'])
+  price = Faker::Commerce.price(range: 80..400, )
+  # Create a new instance of the Airbnb model and save it to the database
+
+  user = User.all.sample
 
   Flat.create!(
-    title: ,
+    title:,
     street: ,
     city: ,
     image_url: ,
@@ -49,7 +57,17 @@ price = Faker::Commerce.price(range: 80..400, )
     price:,
     description:,
     latitude:,
-    longitude:
+    longitude:,
+    user:
   )
 end
 puts "count flat: #{Flat.count}"
+
+
+Flat.all.each do |flat|
+  user = User.where.not(id: flat.user_id).sample
+  start_date = Date.today + rand(1..30).days
+  end_date = start_date + rand(1..30).days
+  confirmed = [true, false].sample
+  Booking.create!(user:, start_date:, end_date:, flat:, confirmed:)
+end
