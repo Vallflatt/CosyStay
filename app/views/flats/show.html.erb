@@ -1,48 +1,31 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%= form_for [@flat, @booking] do |f| %>
-<div data-controller="booking-form" data-booking-form-price-per-night-value="<%= @flat.price %>">
-<%=f.label :start_date %>
-<%=f.date_field :start_date, "data-booking-form-target": "startDate", "data-action": "change->booking-form#updateTotalPrice"%>
-<%=f.label :end_date %>
-<%=f.date_field :end_date, "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"%>
-<%=f.number_field :total_price, value: 0, readonly: true, "data-booking-form-target": "totalPrice" %>
-<%= f.button :submit, class: "btn btn-primary" %>
-</div>
-<% end %>
-
-<div onclick="history.back()">Back</div>
 <br>
-<br>
+<div onclick="history.back()" class="btn btn-secondary rounded-4 m-3">Back</div>
 <div class="mx-auto card-trip w-50 p-4 rounded-4" style="background-color: #eee;">
-  <%= image_tag @flat.image_url, class:"img-thumbnail rounded-4 mb-4" %>
+  <%= image_tag @flat.image_url, class:"img-thumbnail rounded-4 mb-4 w-100" %>
   <div class="card-trip-infos">
     <div class="text-right flex-column justify-space-between mb-4">
-      <p class="fw-bold fs-5 text-end float-end text-secondary">Price per night: <%= @flat.price %></p>
-      <p class="text-right text-uppercase fw-bold fs-3 text-secondary"><%= @flat.title %></p>
+      <p class=" fs-3 text-end float-end text-secondary"><span style="color: black;"><%= @flat.price%> CHF</span> night</p>
+      <p class="text-right text-uppercase fs-3 text-secondary"><span style="color: black;"><%= @flat.title %></p>
+      </span>
       <p class="text-right text-black-50 mb-10"><%= @flat.description %></p>
     </div>
     <div class= "d-grid gap-2 justify-space-between">
-      <%= link_to "Book now", flats_path(@flat), class:"btn btn-success btn-lg float-center text-white fw-normal rounded-4" %>
+      <%= form_for [@flat, @booking] do |f| %>
+        <div data-controller="booking-form" data-booking-form-price-per-night-value="<%= @flat.price %>">
+          <div class="row">
+            <div class="col-6 text-center">
+              <%=f.label :start_date %>
+              <%=f.date_field :start_date, "data-booking-form-target": "startDate", "data-action": "change->booking-form#updateTotalPrice"%>
+            </div>
+            <div class="col-6 text-center">
+              <%=f.label :end_date %>
+              <%=f.date_field :end_date, "data-booking-form-target": "endDate", "data-action": "change->booking-form#updateTotalPrice"%>
+            </div>
+          </div>
+          <%=f.number_field :total_price, readonly: true, class: "form-control col-12 mt-2", "data-booking-form-target": "totalPrice", placeholder: "Total price in CHF"%>
+          <%= f.button :submit, class: "col-12 btn btn-success mt-3 btn-lg float-center text-white fw-normal rounded-4" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
-<br>
-<br>

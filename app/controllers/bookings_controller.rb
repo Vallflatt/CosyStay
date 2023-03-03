@@ -12,7 +12,7 @@ class BookingsController < ApplicationController
     # @booking.user = current_user
 
     if @booking.save
-      redirect_to booking_path(@booking), notice: 'Booking was successfully created.'
+      redirect_to flat_bookings_path(@booking), notice: 'Booking is successfully created.'
     else
       render "flats/show", status: :unprocessable_entity
     end
