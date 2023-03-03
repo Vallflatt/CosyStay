@@ -1,5 +1,11 @@
 class BookingsController < ApplicationController
   before_action :set_flat, only: %i[create]
+  def index
+    bookings = current_user.requested_bookings
+    @pending_bookings = bookings.where(confirmed: false)
+    @approved_bookings = bookings.where(confirmed: true)
+  end
+
   def create
     @booking = Booking.new(booking_params)
     @booking.flat = @flat

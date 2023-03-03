@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :bookings
   has_many :flats
+  has_many :bookings # as a renter
+  has_many :requested_bookings, through: :flats, source: "bookings"
 end
